@@ -1,9 +1,7 @@
 syntax = "proto3";
 package api;
 
-// The Customer service definition.
 service FailMail {
-    // Create a new Customer - A simple RPC
     rpc CreateFailMail (FailMailRequest) returns (FailMailResponse) {}
 }
 
@@ -15,7 +13,7 @@ message FailMailRequest {
 }
 
 message FailMailResponse {
-    int64 id = 1;
+    int64 ID = 1;
     string action = 2;
     bytes payload = 3;
     string reason = 4;
