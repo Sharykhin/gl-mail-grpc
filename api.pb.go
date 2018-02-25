@@ -17,6 +17,11 @@ import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
 
+import (
+	context "golang.org/x/net/context"
+	grpc "google.golang.org/grpc"
+)
+
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
 var _ = fmt.Errorf
@@ -120,6 +125,78 @@ func (m *FailMailResponse) GetDeletedAt() string {
 func init() {
 	proto.RegisterType((*FailMailRequest)(nil), "api.FailMailRequest")
 	proto.RegisterType((*FailMailResponse)(nil), "api.FailMailResponse")
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// Client API for FailMail service
+
+type FailMailClient interface {
+	CreateFailMail(ctx context.Context, in *FailMailRequest, opts ...grpc.CallOption) (*FailMailResponse, error)
+}
+
+type failMailClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewFailMailClient(cc *grpc.ClientConn) FailMailClient {
+	return &failMailClient{cc}
+}
+
+func (c *failMailClient) CreateFailMail(ctx context.Context, in *FailMailRequest, opts ...grpc.CallOption) (*FailMailResponse, error) {
+	out := new(FailMailResponse)
+	err := grpc.Invoke(ctx, "/api.FailMail/CreateFailMail", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Server API for FailMail service
+
+type FailMailServer interface {
+	CreateFailMail(context.Context, *FailMailRequest) (*FailMailResponse, error)
+}
+
+func RegisterFailMailServer(s *grpc.Server, srv FailMailServer) {
+	s.RegisterService(&_FailMail_serviceDesc, srv)
+}
+
+func _FailMail_CreateFailMail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FailMailRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FailMailServer).CreateFailMail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.FailMail/CreateFailMail",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FailMailServer).CreateFailMail(ctx, req.(*FailMailRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _FailMail_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "api.FailMail",
+	HandlerType: (*FailMailServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateFailMail",
+			Handler:    _FailMail_CreateFailMail_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "api.proto",
 }
 
 func init() { proto.RegisterFile("api.proto", fileDescriptor0) }

@@ -10,5 +10,5 @@ Requirement:
 
 Generate golang package:
 ```bash
-protoc --proto_path=./ --go_out=./ ./api.proto
+protoc -I . api.proto --go_out=plugins=grpc:.
 ```
