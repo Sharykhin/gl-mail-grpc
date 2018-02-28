@@ -4,7 +4,7 @@ package api;
 service FailMail {
     rpc CreateFailMail (FailMailRequest) returns (FailMailResponse) {}
 
-    rpc GetFailMails(FailMailFilter) returns (stream FailMailEntity) {}
+    rpc GetFailMails(FailMailFilter) returns (stream FailMailResponse) {}
 }
 
 // Request message for creating a new fail mail
@@ -16,15 +16,6 @@ message FailMailRequest {
 
 // Response of fail mail
 message FailMailResponse {
-    int64 ID = 1;
-    string action = 2;
-    bytes payload = 3;
-    string reason = 4;
-    string created_at = 5;
-    string deleted_at = 6;
-}
-
-message FailMailEntity {
     int64 ID = 1;
     string action = 2;
     bytes payload = 3;
