@@ -4,17 +4,26 @@ package api;
 service FailMail {
     rpc CreateFailMail (FailMailRequest) returns (FailMailResponse) {}
 
-    rpc GetFailMails(FailMailFilter) returns (stream FailMailResponse) {}
+    rpc GetFailMails(FailMailFilter) returns (stream FailMailEntity) {}
 }
 
-// Request message for creating a new customer
+// Request message for creating a new fail mail
 message FailMailRequest {
     string action = 1;
     bytes payload = 2;
     string reason = 3;
 }
 
+// Response of fail mail
 message FailMailResponse {
+    int64 ID = 1;
+    string action = 2;
+    bytes payload = 3;
+    string reason = 4;
+    string created_at = 5;
+}
+
+message FailMailEntity {
     int64 ID = 1;
     string action = 2;
     bytes payload = 3;
@@ -23,6 +32,7 @@ message FailMailResponse {
     string deleted_at = 6;
 }
 
+// Filter for streaming fail mails
 message FailMailFilter {
     int64 limit = 1;
     int64 offset = 2;
