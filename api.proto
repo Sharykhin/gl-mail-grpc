@@ -5,6 +5,17 @@ service FailMail {
     rpc CreateFailMail (FailMailRequest) returns (FailMailResponse) {}
 
     rpc GetFailMails(FailMailFilter) returns (stream FailMailResponse) {}
+
+    rpc CountFailMails(Empty) returns (CountResponse) {}
+}
+
+// Empty request
+message Empty {
+
+}
+
+message CountResponse {
+    int64 total = 1;
 }
 
 // Request message for creating a new fail mail
