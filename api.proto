@@ -21,6 +21,7 @@ message FailMailResponse {
     bytes payload = 3;
     string reason = 4;
     string created_at = 5;
+    string deleted_at = 6;
 }
 
 message FailMailEntity {
