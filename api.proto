@@ -1,12 +1,14 @@
 syntax = "proto3";
 package api;
 
+import "google/protobuf/empty.proto";
+
 service FailMail {
     rpc CreateFailMail (FailMailRequest) returns (FailMailResponse) {}
 
     rpc GetFailMails(FailMailFilter) returns (stream FailMailResponse) {}
 
-    rpc CountFailMails(Empty) returns (CountResponse) {}
+    rpc CountFailMails(google.protobuf.Empty) returns (CountResponse) {}
 }
 
 // Empty request
